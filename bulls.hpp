@@ -18,31 +18,31 @@ struct CompareObj : public P {
     CompareObj(int a, int b) : P(a, b) {}
     int bulls() const {
         return this -> first;
-   }
+    }
     int cows() const {
         return this -> second;
     }
 };
 typedef map<CompareObj, int> cmap;
+vector<int> digits(int num) ;
+CompareObj compare(int a, int b);
+bool check(int i);
 /*ostream& operator<<(ostream& os, const CompareObj& o) {
-    return (os << "Bulls: " << o.bulls() << endl << "Cows: " << o.cows());
-}*/
+  return (os << "Bulls: " << o.bulls() << endl << "Cows: " << o.cows());
+  }*/
 class Game {
-    private:
-    static vector<int> digits(int num) ;
-    protected:
-    int start; //[start, end)
-    int end;
-    Game(int len);
-    //friend ostream& operator<<(ostream& os, const CompareObj& o);
-    static CompareObj compare(int a, int b);
-    static bool check(int i);
+    public:
+        int start; //[start, end)
+        int end;
+        Game(int len);
+        //friend ostream& operator<<(ostream& os, const CompareObj& o);
 };
 
-class Master : private Game {
+class Master {
     int number;
+    Game g;
     public:
-    Master() : Game(-1) {}
+    Master() : g(-1) {}
     Master(int len) ;
     CompareObj try_number(int c) {
         return compare(number, c);
@@ -65,23 +65,26 @@ class Gamer{
         virtual void new_game() = 0;
 };
 
-class Ai_Minimax : public Game, public Ai {
+class Ai_Minimax :public Ai {
     protected:
-    set<int> possible;
-    vector<cmap> vec;
-    virtual void recount(int removed);
+        Game g;
+        set<int> possible;
+        vector<cmap> vec;
+        virtual void recount(int removed);
     public:
-    int size() {return possible.size();}
-    void analyse (CompareObj c, int num);
-    virtual int choose() ;
-    virtual Ai_Minimax* copy() ;
-    Ai_Minimax() : Game(-1) {}
-    Ai_Minimax(int len);
+        int size() {return possible.size();}
+        void analyse (CompareObj c, int num);
+        virtual int choose() ;
+        virtual Ai_Minimax* copy() ;
+        Ai_Minimax() : g(-1) {}
+        Ai_Minimax(int len);
 };
-class Stupid_Ai : public Ai, public Game {
+class Stupid_Ai : public Ai{
     set<int> possible;
+    protected:
+    Game g;
     public:
-    Stupid_Ai () : Game(-1) {}
+    Stupid_Ai () : g(-1) {}
     Stupid_Ai(int len);
     void analyse (CompareObj c, int num);
     int choose() ;

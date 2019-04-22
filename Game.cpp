@@ -1,6 +1,6 @@
 #include "bulls.hpp"
 
-    vector<int> Game::digits(int num) {
+    vector<int> digits(int num) {
         vector <int> res;
         res.reserve((int) (log10(num) + 1));
         while (num > 0) {
@@ -16,7 +16,7 @@
         end = pow(10, len);
     }
 
-    CompareObj Game::compare(int a, int b) {
+    CompareObj compare(int a, int b) {
         vector<int> da = digits(a), db = digits(b);
         assert(da.size() == db.size());
         vector<bool> first_contains_cows(10);
@@ -39,7 +39,7 @@
                 */
         return CompareObj(bulls, cows);
     }
-    bool Game::check(int i) {
+    bool check(int i) {
         auto tmp = digits(i);
         sort(all(tmp));
         return unique(all(tmp)) == tmp.end();

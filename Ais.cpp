@@ -2,7 +2,7 @@
 
     void Ai_Minimax::recount(int removed) {
         for (int i = 0; i < vec.size(); ++i) {
-            --vec[i][compare(removed, i + start)];
+            --vec[i][compare(removed, i + g.start)];
         }
     }
     void Ai_Minimax::analyse (CompareObj c, int num) {
@@ -17,12 +17,12 @@
     int Ai_Minimax::choose() {
         int mn = INT_MAX, ma;
         bool min_in_sure = false;
-        for (int i = start; i < end; ++i) {
+        for (int i = g.start; i < g.end; ++i) {
             if (!check(i)) continue;
             int mx = 0;
             //printf("i:%i | ", i);
             for (int j : possible) {
-                int tmp = vec[i - start][compare(j, i)];
+                int tmp = vec[i - g.start][compare(j, i)];
                 //printf("%i(%i) ", j, tmp);
                 if (tmp > mx) {
                     mx = tmp;
@@ -50,20 +50,20 @@
         *tmp = *this;
         return tmp;
     }
-    Ai_Minimax::Ai_Minimax(int len) : Game(len) {
-        vec.resize(end - start);
-        for (int i = start; i < end; ++i) {
+    Ai_Minimax::Ai_Minimax(int len) : g(len) {
+        vec.resize(g.end - g.start);
+        for (int i = g.start; i < g.end; ++i) {
             if (check(i)) possible.insert(i);
         }
         for (int i : possible) {
             for (int j : possible) {
-                ++(vec[i - start][compare(i, j)]);
+                ++(vec[i - g.start][compare(i, j)]);
             }
         }
     }
 
-    Stupid_Ai::Stupid_Ai(int len) : Game(len) {
-        for (int i = start; i < end; ++i) {
+    Stupid_Ai::Stupid_Ai(int len) : g(len) {
+        for (int i = g.start; i < g.end; ++i) {
             if (check(i)) possible.insert(i);
         }
     }
