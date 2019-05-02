@@ -1,4 +1,4 @@
-#include "bulls.hpp"
+#include "Bench.hpp"
 
 int Benchmark::game(bool out) {
     m = Master(len);

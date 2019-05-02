@@ -1,4 +1,14 @@
-#include "bulls.hpp"
+#include "game.hpp"
+
+    Master::Master(int len) : g(len){
+        random_device rd;
+        mt19937_64 gen(rd());
+        uniform_int_distribution<> d(g.start, g.end - 1);
+        do{
+            number = d(gen);
+        } while (!check(number));
+        //printf("Number: %i\n", number);
+    }
 
     vector<int> digits(int num) {
         vector <int> res;

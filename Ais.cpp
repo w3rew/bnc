@@ -1,4 +1,4 @@
-#include "bulls.hpp"
+#include "Ai.hpp"
 
     void Ai_Minimax::recount(int removed) {
         for (int i = 0; i < vec.size(); ++i) {
